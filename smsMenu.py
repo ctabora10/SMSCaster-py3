@@ -14,7 +14,7 @@ root.resizable(width=False, height=False)
 
 fontStyle = tkFont.Font(root, family="Lucida Grande", size=60)
 
-canvas = tk.Canvas(root, width=940, height=610, bg="#ccffff")
+canvas = tk.Canvas(root, width=940, height=610, bg="#323232")
 canvas.grid(columnspan=3, rowspan=3)
 
 #Logo
@@ -61,10 +61,10 @@ def secondWindow():
     
 # Frames seen on the Starter Screen. 
 
-sideframe = customtkinter.CTkFrame(master=root, width=280, height=520, corner_radius=15, fg_color="#ffffff", bg_color="#ccffff")
+sideframe = customtkinter.CTkFrame(master=root, width=280, height=520, corner_radius=15, fg_color="#3f3f3f", bg_color="#323232")
 sideframe.place(relx=0.25, rely=0.5, anchor=tk.CENTER)
 
-wholeframe = customtkinter.CTkFrame(master=root, width=410, height=520, corner_radius=15, fg_color="#ffffff", bg_color="#ccffff")
+wholeframe = customtkinter.CTkFrame(master=root, width=410, height=520, corner_radius=15, fg_color="#ffffff", bg_color="#323232")
 wholeframe.place(relx=0.72, rely=0.5, anchor=tk.CENTER)
     
     
@@ -99,11 +99,11 @@ phone_label.place(relx=0.59, rely=0.09)
 
 
 
-button2 = customtkinter.CTkButton(master=root, width=240, height=40, fg_color=("lightblue"), text="Send Default SMS",command=button2_event)
+button2 = customtkinter.CTkButton(master=root, width=240, height=40, fg_color=("#1c94cf"), bg_color=("#3f3f3f"), text="Send Default SMS",command=button2_event)
 button2.place(relx=0.125, rely=0.2)
 
 
-button3 = customtkinter.CTkButton(master=root, width=240, height=40, fg_color=("lightblue"), text="Change Number",command=secondWindow)
+button3 = customtkinter.CTkButton(master=root, width=240, height=40, fg_color=("#1c94cf"), bg_color=("#3f3f3f"), text="Change Number",command=secondWindow)
 button3.place(relx=0.125, rely=0.28)
 
 
