@@ -4,6 +4,25 @@ import requests
 import tkinter.font as tkFont
 import customtkinter
 from PIL import Image, ImageTk
+import sqlite3
+
+
+#################################
+####  DATABASE CREATION  ########
+#################################
+connection = sqlite3.connect('store_number.db')
+
+cursor = connection.cursor()
+
+# Create stores table
+
+Command1 = """CREATE TABLE IF NOT EXISTS
+s
+
+
+cursor.execute(Command1)
+
+
 
 
 
@@ -284,6 +303,14 @@ title.grid(columnspan=3, column=1, row=0)
 title.config(font=("Franklin Gothic Demi Cond", 14))
 title.place(relx= 0.135, rely = 0.11)
 
+split = tk.Label(root, text=" ____________________ ",
+                 bg="#3f3f3f",
+				 fg="#FFFFFF")
+
+split.grid(columnspan=3, column=1, row=0)
+split.config(font=("Franklin Gothic Demi Cond", 14))
+split.place(relx= 0.07, rely = 0.37)
+
 
 
 
@@ -356,6 +383,15 @@ button4 = customtkinter.CTkButton(master=root,
 								  text="Send Single SMS",
 								  command=SingleSMS)
 button4.place(relx=0.08, rely=0.32)
+
+button5 = customtkinter.CTkButton(master=root,
+                                  width=190,
+								  height=25,
+								  fg_color=("#1c94cf"),
+								  bg_color=("#3f3f3f"),
+								  text="SMS Marketing",
+								  command=SingleSMS)
+button5.place(relx=0.08, rely=0.45)
 
 optionsbutton = customtkinter.CTkButton(master=root,
                                         image=settings_icon,
