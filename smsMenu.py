@@ -217,9 +217,12 @@ def StoredResponses():
 	entry.place_forget()
 	innerframe.place_forget()
 
+
+
 	#Set up the Stored Responses Frame Content
 	innerframe.place(relx=0.65, rely=0.30, anchor=tk.CENTER)
 
+	global SRlabel
 	SRlabel = customtkinter.CTkLabel(master=root,
 	                               text="Stored Responses :)",
 	                               width=120,
@@ -240,7 +243,7 @@ def SingleSMS():
 	numberlabel.place_forget()
 	message_capture.place_forget()
 	entry.place_forget()
-	SRlabel.place_forget()
+	#SRlabel.place_forget()
 
 
 	innerframe.place()
