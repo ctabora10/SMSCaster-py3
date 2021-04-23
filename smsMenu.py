@@ -10,18 +10,8 @@ import sqlite3
 #################################
 ####  DATABASE CREATION  ########
 #################################
-connection = sqlite3.connect('store_number.db')
 
-cursor = connection.cursor()
-
-# Create stores table
-
-Command1 = """CREATE TABLE IF NOT EXISTS
-s
-
-
-cursor.execute(Command1)
-
+# If I HAD one!
 
 
 
@@ -225,15 +215,39 @@ def StoredResponses():
 	numberlabel.place_forget()
 	message_capture.place_forget()
 	entry.place_forget()
+	innerframe.place_forget()
+
+	#Set up the Stored Responses Frame Content
+	innerframe.place(relx=0.65, rely=0.30, anchor=tk.CENTER)
+
+	SRlabel = customtkinter.CTkLabel(master=root,
+	                               text="Stored Responses :)",
+	                               width=120,
+	                               height=25,
+	                               corner_radius=8,
+								   bg_color="#616161")
+	SRlabel.place(relx=0.4, rely=0.15,)
+
+
+
+
+
+
+
 
 def SingleSMS():
+	innerframeSR.place_forget()
+	numberlabel.place_forget()
+	message_capture.place_forget()
+	entry.place_forget()
+	SRlabel.place_forget()
 
 
-
-
+	innerframe.place()
 	numberlabel.place(relx=0.4, rely=0.15,)
 	message_capture.place(relx=0.385, rely=0.22)
 	entry.place(relx=0.53, rely=0.15)
+
 	#settingsframe.place_forget()
 
 
@@ -272,6 +286,14 @@ wholeframe = customtkinter.CTkFrame(master=root,
 									fg_color="#3f3f3f",
 									bg_color="#323232")
 wholeframe.place(relx=0.65, rely=0.5, anchor=tk.CENTER)
+
+innerframeSR = customtkinter.CTkFrame(master=root,
+									width=540,
+									height=220,
+									corner_radius=15,
+									fg_color="#616161",
+									bg_color="#3f3f3f")
+innerframeSR.place(relx=0.65, rely=0.30, anchor=tk.CENTER)
 
 innerframe = customtkinter.CTkFrame(master=root,
                                     width=540,
@@ -313,7 +335,7 @@ split.place(relx= 0.07, rely = 0.37)
 
 
 
-
+# ALL of the Single SMS Content
 
 numberlabel = customtkinter.CTkLabel(master=root,
                                text="Phone Number",
