@@ -5,6 +5,10 @@ import tkinter.font as tkFont
 import customtkinter
 from PIL import Image, ImageTk
 import sqlite3
+import gobject
+import gst
+import os
+import sys
 
 
 #################################
@@ -37,6 +41,43 @@ logo_label.image = logo
 logo_label.grid(column=0, row=0)
 
 
+def PlayVideo():
+
+
+	def on_sync_message(bus, message, window_id):
+			if not message.structure is None:
+				if message.structure.get_name() == 'prepare-xwindow-id':
+        				image_sink = message.src
+        				image_sink.set_property('force-aspect-ratio', True)
+        				image_sink.set_xwindow_id(window_id)
+
+	gobject.threads_init()
+
+	window = tkinter.Tk()
+	window.geometry('500x400')
+
+	video = tkinter.Frame(window, bg='#000000')
+	video.pack(side=tkinter.BOTTOM,anchor=tkinter.S,expand=tkinter.YES,fill=tkinter.BOTH)
+
+	window_id = video.winfo_id()
+
+	player = gst.element_factory_make('playbin2', 'player')
+	player.set_property('video-sink', None)
+	player.set_property('uri', 'file://%s' % (os.path.abspath(sys.argv[1])))
+	player.set_state(gst.STATE_PLAYING)
+
+	bus = player.get_bus()
+	bus.add_signal_watch()
+	bus.enable_sync_message_emission()
+	bus.connect('sync-message::element', on_sync_message, window_id)
+
+
+
+
+
+
+
+
 
 
 def Send_SMS():
@@ -51,6 +92,11 @@ def Send_SMS():
 })
 	print(resp.json())
 	return
+
+
+
+
+
 
 def button2_event():
     print("button2 event was pressed. hoe..")
@@ -143,6 +189,120 @@ def Settings():
 	setting2.grid(columnspan=3, column=1, row=0)
 	setting2.config(font=("Calibri", 18))
 	setting2.place(relx= 0.40, rely = 0.36)
+
+def TokenPage():
+
+
+
+		def Check_Token():
+
+			def hideTokenTab():
+				Tokenexitbutton.place_forget()
+				Tokenframe.place_forget()
+				Tokentitle.place_forget()
+				innerframeTk.place_forget()
+				Tokenphrase.place_forget()
+				Tokenphrase2.place_forget()
+
+			resp2 = requests.get('https://textbelt.com/quota/3ab03b66488923feeada54e25e5118781c190991RIHEVBwMxq0XoZuG8EsnZNJyl')
+			#print(resp2.json())
+
+			resp3 = (str(resp2.json()).translate({ord(i): None for i in 'quoteremaingscTR:}{, '}).replace('""', ' '))
+			resp4 = resp3[4:]
+
+
+			Tokenframe = customtkinter.CTkFrame(master=root,
+				                                    width=590,
+													height=520,
+													corner_radius=15,
+													fg_color="#616161",
+													bg_color="#323232")
+			Tokenframe.place(relx=0.65, rely=0.5, anchor=tk.CENTER)
+			
+			innerframeTk = customtkinter.CTkFrame(master=root,
+		                                    width=450,
+											height=70,
+											corner_radius=15,
+											fg_color="#3f3f3f",
+											bg_color="#616161")
+			innerframeTk.place(relx=0.65, rely=0.18, anchor=tk.CENTER)
+
+
+			Tokentitle = tk.Label(root, text=resp4,
+		                 bg="#3f3f3f",
+						 fg="#FFFFFF")
+
+			Tokentitle.grid(columnspan=3, column=1, row=0)
+			Tokentitle.config(font=("Franklin Gothic Demi Cond", 24))
+			Tokentitle.place(relx= 0.57, rely = 0.14)
+
+			Tokenphrase = tk.Label(root, text="You have",
+		                 bg="#3f3f3f",
+						 fg="#FFFFFF")
+
+			Tokenphrase.grid(columnspan=3, column=1, row=0)
+			Tokenphrase.config(font=("Franklin Gothic Demi Cond", 24))
+			Tokenphrase.place(relx= 0.45, rely = 0.14)
+
+			Tokenphrase2 = tk.Label(root, text="tokens left to use",
+		                 bg="#3f3f3f",
+						 fg="#FFFFFF")
+
+			Tokenphrase2.grid(columnspan=3, column=1, row=0)
+			Tokenphrase2.config(font=("Franklin Gothic Demi Cond", 24))
+			Tokenphrase2.place(relx= 0.63, rely = 0.14)
+
+
+
+
+
+			Tokenexitbutton = customtkinter.CTkButton(master=root,
+												image=settingsexit,
+												width=40,
+												height=40,
+												fg_color=("#616161"),
+												bg_color=("#616161"),
+												text="Options",
+												hover_color=("#3f3f3f"),
+												command=hideTokenTab)
+			Tokenexitbutton.place(relx=0.40, rely=0.84)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		Check_Token()
+		numberlabel.place_forget()
+		message_capture.place_forget()
+		entry.place_forget()
+
+		#resp2 = Check_Token()
+
+
+		return
+
+	#Check_Token()
+
+
+
+
+
+
 
 def InfoPage():
 
@@ -417,6 +577,15 @@ button5 = customtkinter.CTkButton(master=root,
 								  text="SMS Marketing",
 								  command=SingleSMS)
 button5.place(relx=0.08, rely=0.45)
+
+button6 = customtkinter.CTkButton(master=root,
+                                  width=190,
+								  height=25,
+								  fg_color=("#1c94cf"),
+								  bg_color=("#3f3f3f"),
+								  text="Check SMS Tokens",
+								  command=TokenPage)
+button6.place(relx=0.08, rely=0.51)
 
 optionsbutton = customtkinter.CTkButton(master=root,
                                         image=settings_icon,
